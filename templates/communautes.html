@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Communautes du monde :
+{% endblock %}
+
+
+{% block content %}
+
+<h3> Communautes suivies :</h3>
+
+{% for commu in communautes_suivies %}
+<div class="shadow p-4 mb-4 bg-light rounded">
+    <div class="row" style="...">
+            <a class="text" href="{% url 'communaute' commu.id %}" style="color: teal">{{ commu.nom }}  </a>
+            <hr>
+            <a class="btn float-right" href="{% url 'desabonnement' commu.id %}" role="button" style="color: Red">
+            <i class="fas fa-check-square"></i>
+        </a>
+    </div>
+</div>
+{% endfor %}
+
+<h3> Communautes non suivies :</h3>
+
+{% for commu in communautes_non_suivies %}
+<div class="p-4 mb-4 bg-light rounded">
+    <div class="row" style="...">
+        <a class="text" href="{% url 'communaute' commu.id %}" style="color: teal">{{ commu.nom }}  </a>
+            <hr>
+            <a class="btn float-right" href="{% url 'abonnement' commu.id %}" role="button" style="color: aquamarine">
+            <i class="far fa-check-square"></i>
+        </a>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" href="{% static 'css/style.css' %}">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="jumbotron text" style="margin-bottom:0; background-color:limegreen; color:white">
+        <header>
+            <h1 class="display-3">CommunityWorld</h1>
+            <p>Le monde s'ouvre à vous{% if request.user.username %}, {{ request.user.username }}{% endif %}</p>
+        </header>
+
+    </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'home' %}">Community World</a>
+            </div>
+            <ul class="nav navbar-nav">
+                {% if not request.user.is_authenticated %}
+                <li><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                {% else %}
+
+                <li><a href="{% url 'home' %}" style="color: darkblue">Home</a></li>
+                <li><a href="{% url 'communautes' %}" style="color: teal">Communautes</a></li>
+                <li><a href="{% url 'fil_actualite' %}" style="color: mediumaquamarine">Fil d'actualite</a></li>
+                <a href="{% url 'filtrage_priorite' %}" role="button" style="color: coral"><i class="fas fa-search"></i></a>
+                <a href="{% url 'filtrage_priorite_communaute' %}" role="button" style="color: darkred"><i
+                        class="fas fa-search"></i></a>
+                <a href="{% url 'nouveau_post' %}" role="button" style="color: limegreen"><i
+                        class="fas fa-plus"></i></a>
+                <li><a href="{% url 'logout' %}" style="color: black">logout</a></li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container" style="margin-bottom: 2%">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="row pt-5">
+        <footer><em>&copy; Regalez-vous !</em></footer>
+    </div>
+
+</div>
+</body>
+</html>

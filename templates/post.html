@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Posts de {{ commu.nom }} :
+{% endblock %}
+
+
+{% block content %}
+
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <h1 class="text" style="color: teal">{{ Commu.nom }}</h1>
+
+    </div>
+
+{% if couleur == 'Ecarlate'%}
+<h1 class="text" style="color:darkred">  {{ post.titre }} :</h1>
+{% elif couleur == 'Rouge' %}
+<h1 class="text" style="color:red">  {{ post.titre }} :</h1>
+{% elif couleur == 'Orange' %}
+<h1 class="text" style="color:orange">  {{ post.titre }} :</h1>
+{% elif couleur == 'Jaune' %}
+<h1 class="text" style="color:yellow">  {{ post.titre }} :</h1>
+{% else %}
+<h1>  {{ post.titre }} :</h1>
+{% endif %}
+<p> par {{ post.auteur }} le {{ post.date }}</p>
+<h2>{{ post.description }}</h2>
+
+<div >
+    <h1 class="text" style="color: teal"> </h1>
+    <br>
+    <br>
+    </div>
+
+{% if post.evenementiel %}
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <h2 href="{% url 'home' %}" role="button" style="color: limegreen"><i class="fas fa-calendar-day"></i></h2>
+    <h3 class="text">L'evenement aura lieu le {{ post.date_evenement }} !</h3>
+    </div>
+{% endif %}
+
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <h3 class="text">Nombre de likes : {{nb_likes}}</h3>
+    {% if a_aime %}
+    <a href="{% url 'unlike' post.id %}" role="button" style="color: lightpink"><i class="fas fa-heart"></i></a>
+    {% else %}
+    <a href="{% url 'like' post.id %}" role="button" style="color: lightpink"><i class="far fa-heart"></i></a>
+    {% endif %}
+    </div>
+
+{% if auteur == post.auteur %}
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <h3 class="text">Modifier Post :</h3>
+    <a href="{% url 'modif_post' post.id %}" role="button" style="color: mediumpurple"><i class="fas fa-user-cog"></i></a>
+    </div>
+{% endif %}
+
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <h3 class="text">Nouveau Commentaire :</h3>
+    <a href="{% url 'nouveau_commentaire' post.id %}" role="button" style="color: limegreen"><i class="fas fa-comments"></i></a>
+    </div>
+
+
+{% if nb_commentaires != 0 %}
+<h3> Commentaires :</h3>
+
+    {% for commentaire in commentaires %}
+        <div class="shadow p-4 mb-4 bg-light rounded ">
+            <div class="row" style="...">
+                <h4 class="text"  style="color: Gold">{{ commentaire.auteur }} :  </h4>
+                <hr>
+                <p class="text" style="color: black">{{ commentaire.contenu }}</p>
+         </div>
+</div>
+{% endfor %}
+{% else %}
+<h3> Soyez le premier à commenter ! </h3>
+{% endif %}
+
+{% endblock %}

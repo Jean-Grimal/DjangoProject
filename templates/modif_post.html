@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Modification d'un Post
+{% endblock %}
+
+{% block content %}
+
+<h2>Modifiez votre Post :</h2>
+
+<form action="{% url 'modif_post' post.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

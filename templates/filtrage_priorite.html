@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Filtrage Priorite
+{% endblock %}
+
+{% block content %}
+
+<h2>Filtrer selon la priorite :</h2>
+
+<form action="{% url 'filtrage_priorite' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock %}

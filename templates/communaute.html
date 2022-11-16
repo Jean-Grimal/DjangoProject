@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Posts de {{ commu.nom }} :
+{% endblock %}
+
+
+{% block content %}
+
+<h1> Posts de {{ commu.nom }} :</h1>
+
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <p class="text">Nouveau Post :</p>
+    <a href="{% url 'nouveau_post' %}" role="button" style="color: limegreen"><i class="fas fa-plus"></i></a>
+</div>
+{% for post in Posts %}
+<div class="shadow p-4 mb-4 bg-light rounded ">
+    <div class="row" style="...">
+        {% if post in posts_ecarlates %}
+        <a class="text" href="{% url 'afficher_post' post.id %}" style="color: darkred">{{ post.titre }} </a>
+        <hr>
+        {% elif post in posts_rouges %}
+        <a class="text" href="{% url 'afficher_post' post.id %}" style="color: red">{{ post.titre }} </a>
+        <hr>
+        {% elif post in posts_oranges %}
+        <a class="text" href="{% url 'afficher_post' post.id %}" style="color: orange">{{ post.titre }} </a>
+        <hr>
+        {% elif post in posts_jaunes %}
+        <a class="text" href="{% url 'afficher_post' post.id %}" style="color: gold">{{ post.titre }} </a>
+        <hr>
+        {% else %}
+        <a class="text" href="{% url 'afficher_post' post.id %}" style="color: black">{{ post.titre }} </a>
+        <hr>
+        {% endif %}
+        {% if Utilisateur == post.auteur %}
+        <a class="btn float-right" href="{% url 'modif_post' post.id %}" role="button" style="color: Purple">
+            <i class="fas fa-user-cog"></i></a>
+        <hr>
+        {% endif %}
+        {% if post.evenementiel %}
+        <p class="btn float-right" style="color: limegreen"><i class="fas fa-calendar-day"> {{ post.date_evenement
+            }}</i></p>
+        {% endif %}
+
+    </div>
+
+    <div class="row" style="align-items: center">
+        <p class="text">Ecrit par {{ post.auteur }} le {{ post.date }}</p>
+    </div>
+
+    <div class="row" style="align-items: center">
+        <p class="text">{{ post.description }}</p>
+    </div>
+
+    <div class="row" style="...">
+        {% if post in posts_aime %}
+        <a href="{% url 'unlike' post.id %}" role="button" style="color: lightpink"><i class="fas fa-heart"></i></a>
+        <hr>
+        {% else %}
+        <a href="{% url 'like' post.id %}" role="button" style="color: lightpink"><i class="far fa-heart"></i></a>
+        <hr>
+        {% endif %}
+        {% if post in posts_vus %}
+        <p class="btn float-right" style="color: darkslategrey"><i class="fas fa-glasses"></i></p>
+        {% else %}
+        <p class="btn float-right" style="color: darkslategray"><i class="fas fa-exclamation"></i></p>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}

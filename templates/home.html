@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<h1>Nous sommes heureux de vous revoir {{ user.username }}, Bienvenue dans le monde des communautes ! </h1>
+
+{% else %}
+<h1>Pour entrer dans le monde des communautes, identifiez-vous </h1>
+{% endif %}
+
+
+{% endblock %}
